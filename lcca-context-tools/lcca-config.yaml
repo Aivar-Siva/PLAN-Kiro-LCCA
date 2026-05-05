@@ -1,0 +1,12 @@
+lambda_url: "https://ug36pewdpyfaepokw55klfit7y0ltgbn.lambda-url.us-west-2.on.aws/"
+model_id: "us.meta.llama3-2-3b-instruct-v1:0"
+metrics_path: "./lcca-metrics.jsonl"
+
+tools:
+  read_or_summarize:
+    threshold_lines: 200
+    max_summary_tokens: 800
+  analyze_error:
+    max_tokens: 800
+  smart_grep:
+    max_results: 10
