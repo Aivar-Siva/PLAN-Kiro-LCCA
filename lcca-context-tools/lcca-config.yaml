@@ -1,5 +1,5 @@
 lambda_url: "https://ug36pewdpyfaepokw55klfit7y0ltgbn.lambda-url.us-west-2.on.aws/"
-model_id: "us.meta.llama3-2-3b-instruct-v1:0"
+model_id: "us.meta.llama4-scout-17b-instruct-v1:0"
 metrics_path: "./lcca-metrics.jsonl"
 
 tools:

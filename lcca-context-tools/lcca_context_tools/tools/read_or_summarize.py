@@ -6,7 +6,9 @@ from lcca_context_tools.metrics import log_metric
 def read_or_summarize(path: str, task_query: str, config: dict,
                       threshold_lines: int = None, max_summary_tokens: int = None) -> dict:
     tool_cfg = config["tools"]["read_or_summarize"]
-    threshold = threshold_lines or tool_cfg["threshold_lines"]
+    configured_threshold = tool_cfg["threshold_lines"]
+    # Cap to configured default — agent cannot override upward
+    threshold = min(threshold_lines or configured_threshold, configured_threshold)
     max_tokens = max_summary_tokens or tool_cfg["max_summary_tokens"]
 
     content = Path(path).read_text(errors="replace")

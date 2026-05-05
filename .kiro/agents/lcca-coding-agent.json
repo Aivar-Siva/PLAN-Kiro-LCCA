@@ -1,0 +1,21 @@
+{
+  "name": "lcca-coding-agent",
+  "description": "Coding agent using small-model MCP tools for context-lean I/O",
+  "mcpServers": {
+    "lcca-context-tools": {
+      "command": "/home/ssabari/aivarProject/PLAN-Kiro-LCCA/.venv/bin/lcca-context-tools",
+      "args": [],
+      "env": {
+        "LCCA_CONFIG_PATH": "/home/ssabari/aivarProject/PLAN-Kiro-LCCA/lcca-context-tools/lcca-config.yaml"
+      }
+    }
+  },
+  "tools": ["glob", "code", "fs_write", "execute_bash", "@lcca-context-tools"],
+  "allowedTools": ["glob", "code", "@lcca-context-tools"],
+  "toolsSettings": {
+    "execute_bash": {
+      "allowedCommands": ["pytest", "python", "git", "pip"]
+    }
+  },
+  "prompt": "You are a coding agent with context-optimized tools. STRICT RULES:\n1. NEVER use execute_bash with sed, cat, head, tail, or grep to read file content. This is forbidden.\n2. To read any file: use @lcca-context-tools/read_or_summarize\n3. To search for patterns: use @lcca-context-tools/smart_grep\n4. To analyze test output: use @lcca-context-tools/analyze_error\n5. execute_bash is ONLY allowed for: running tests (pytest), writing files, git commands.\nViolating rules 1-4 defeats the purpose of this agent."
+}
