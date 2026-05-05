@@ -1,0 +1,16 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lcca-context-tools"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "mcp==1.6.0",
+    "requests==2.32.3",
+    "pyyaml==6.0.2",
+]
+
+[project.scripts]
+lcca-context-tools = "lcca_context_tools.server:main"
