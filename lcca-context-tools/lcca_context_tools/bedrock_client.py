@@ -20,25 +20,30 @@ def call_small_model(prompt: str, max_tokens: int, config: dict) -> tuple[str, d
     prompt_tokens = 0
     completion_tokens = 0
 
-    for raw_line in resp.iter_lines():
-        if not raw_line:
-            continue
-        line = raw_line.decode("utf-8") if isinstance(raw_line, bytes) else raw_line
-        if line.startswith("data: "):
-            line = line[6:]
-        try:
-            chunk = json.loads(line)
-        except json.JSONDecodeError:
-            continue
+    try:
+        for raw_line in resp.iter_lines():
+            if not raw_line:
+                continue
+            line = raw_line.decode("utf-8") if isinstance(raw_line, bytes) else raw_line
+            if line.startswith("data: "):
+                line = line[6:]
+            try:
+                chunk = json.loads(line)
+            except json.JSONDecodeError:
+                continue
 
-        # Accumulate text
-        text_parts.append(chunk.get("generation", ""))
+            text_parts.append(chunk.get("generation", ""))
 
-        # Capture token counts from first chunk (has prompt_token_count) and last (stop_reason)
-        if chunk.get("prompt_token_count"):
-            prompt_tokens = chunk["prompt_token_count"]
-        if chunk.get("generation_token_count"):
-            completion_tokens = chunk["generation_token_count"]
+            if chunk.get("prompt_token_count"):
+                prompt_tokens = chunk["prompt_token_count"]
+            if chunk.get("generation_token_count"):
+                completion_tokens = chunk["generation_token_count"]
+            metrics = chunk.get("amazon-bedrock-invocationMetrics")
+            if metrics:
+                prompt_tokens = metrics.get("inputTokenCount", prompt_tokens)
+                completion_tokens = metrics.get("outputTokenCount", completion_tokens)
+    except requests.exceptions.RequestException as e:
+        raise RuntimeError(f"Stream interrupted: {e}") from e
 
     usage = {"prompt_tokens": prompt_tokens, "completion_tokens": completion_tokens}
     return "".join(text_parts), usage

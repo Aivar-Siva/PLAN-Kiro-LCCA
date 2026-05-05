@@ -1,11 +1,8 @@
 {
   "mcpServers": {
     "lcca-context-tools": {
-      "command": "/home/ssabari/aivarProject/PLAN-Kiro-LCCA/.venv/bin/lcca-context-tools",
+      "command": "${workspaceFolder}/.venv/bin/lcca-context-tools",
       "args": [],
-      "env": {
-        "LCCA_CONFIG_PATH": "/home/ssabari/aivarProject/PLAN-Kiro-LCCA/lcca-context-tools/lcca-config.yaml"
-      },
       "disabled": false
     }
   }
