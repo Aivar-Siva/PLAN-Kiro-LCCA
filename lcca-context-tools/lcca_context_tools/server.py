@@ -9,8 +9,11 @@ from lcca_context_tools.tools.smart_grep import smart_grep as _sg
 mcp = FastMCP("lcca-context-tools")
 
 def _cfg() -> dict:
-    path = os.environ.get("LCCA_CONFIG_PATH", "./lcca-config.yaml")
-    with open(path) as f:
+    path = os.environ.get("LCCA_CONFIG_PATH")
+    if not path:
+        # Default: lcca-config.yaml next to the package
+        path = os.path.join(os.path.dirname(__file__), "..", "..", "lcca-config.yaml")
+    with open(os.path.normpath(path)) as f:
         return yaml.safe_load(f)
 
 

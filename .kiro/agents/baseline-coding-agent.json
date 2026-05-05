@@ -1,0 +1,7 @@
+{
+  "name": "baseline-coding-agent",
+  "description": "Baseline coding agent using only built-in tools, no MCP compression",
+  "tools": ["fs_read", "fs_write", "execute_bash", "grep", "glob", "code"],
+  "allowedTools": ["fs_read", "grep", "glob", "code"],
+  "prompt": "You are a coding agent. Use built-in tools to complete software engineering tasks. Read files with fs_read, search with grep, write with fs_write, run commands with execute_bash."
+}

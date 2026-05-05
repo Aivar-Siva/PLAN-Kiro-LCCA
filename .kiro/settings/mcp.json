@@ -1,11 +1,8 @@
 {
   "mcpServers": {
     "lcca-context-tools": {
-      "command": "uvx",
-      "args": ["--from", "./lcca-context-tools", "lcca-context-tools"],
-      "env": {
-        "LCCA_CONFIG_PATH": "./lcca-context-tools/lcca-config.yaml"
-      },
+      "command": "${workspaceFolder}/.venv/bin/lcca-context-tools",
+      "args": [],
       "disabled": false
     }
   }
